@@ -1,0 +1,158 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second-Rung — Evidence before advice</title>
+<style>
+:root{--ink:#182b35;--muted:#607178;--paper:#f4f7f4;--green:#14594f;--line:#dce5e1;--white:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}
+.wrap{max-width:1120px;margin:auto;padding:24px}
+header{background:white;border-bottom:1px solid var(--line)}
+nav{max-width:1120px;margin:auto;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:22px;font-weight:850;letter-spacing:-1px}
+.mark{display:inline-grid;place-items:center;background:var(--green);color:white;border-radius:10px;width:34px;height:34px;margin-right:8px}
+.pill{border:1px solid var(--line);border-radius:30px;padding:6px 11px;font-size:12px}
+.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:center;padding:48px 0 30px}
+.eyebrow{color:var(--green);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(40px,6vw,64px);line-height:1.02;letter-spacing:-3px;margin:14px 0}
+h2{letter-spacing:-1px}p{color:var(--muted)}
+.hero p{font-size:17px;max-width:650px}
+.card{background:white;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px}
+.dark{background:#153e39;color:white;border:0;padding:28px}
+.dark p{color:#d1e4de}
+button{font:inherit;cursor:pointer;border-radius:10px;padding:11px 15px;font-weight:750;border:1px solid var(--line);background:white;color:var(--ink)}
+.primary{background:var(--green);color:white;border-color:var(--green)}
+button:hover{filter:brightness(.96)}
+.notice{background:#fff5dc;border:1px solid #edd89d;border-radius:12px;padding:14px;color:#684e19;font-size:13px}
+.layout{display:grid;grid-template-columns:310px 1fr;gap:20px;align-items:start}
+label{display:block;font-size:12px;font-weight:750;margin:16px 0 6px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #cbd8d2;border-radius:9px;background:#fbfcfa;font:inherit;color:var(--ink)}
+textarea{min-height:95px;resize:vertical}
+small{font-size:11px;color:var(--muted);font-weight:400}
+.sectionhead{margin:34px 0 16px}
+.routes{display:grid;gap:12px}
+.route{background:white;border:1px solid var(--line);border-radius:16px;padding:19px}
+.route h3{margin:0 0 4px;font-size:20px}
+.status{font-size:10px;font-weight:800;border:1px solid var(--line);padding:5px 8px;border-radius:7px;white-space:nowrap}
+.routehead{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.info{background:#f5f8f5;border-radius:10px;padding:12px;font-size:12px}
+.info strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+ul{padding-left:17px;margin:5px 0}
+li{margin:5px 0}
+.proof{font-size:12px;border-top:1px solid var(--line);margin-top:14px;padding-top:12px;color:var(--muted)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.bottom{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:30px 0}
+footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-size:12px}
+@media(max-width:780px){.hero,.layout,.bottom{grid-template-columns:1fr}.hero{padding-top:28px}.wrap{padding:17px}nav{padding:16px 17px}}
+@media(max-width:460px){.cols{grid-template-columns:1fr}.routehead{display:block}.status{display:inline-block;margin-top:8px}h1{letter-spacing:-2px}}
+</style>
+</head>
+<body>
+<header><nav><div class="brand"><span class="mark">2</span>second-rung</div><span class="pill">WEEK 9 · DEMO</span></nav></header>
+<main class="wrap">
+<section class="hero">
+<div>
+<div class="eyebrow">A pathway should survive a reality check</div>
+<h1>Your next step needs <span style="color:var(--green)">evidence.</span></h1>
+<p>Translate experience you already have into a credible next move. See what is supported, what is missing, and what still needs an employer to say yes.</p>
+<button class="primary" id="explore">Explore a sample pathway ↗</button>
+<button id="how">How this works</button>
+</div>
+<div class="card dark">
+<div class="eyebrow" style="color:#bde0d3">THE SECOND-RUNG TEST</div>
+<h2>Skills mapping is not the same as creating an opportunity.</h2>
+<p>We show the evidence behind a possible next step—and where the evidence stops.</p>
+<span class="pill">Evidence before advice</span>
+</div>
+</section>
+
+<div class="notice"><strong>SIMULATED DEMO.</strong> All profile details and example pathways are invented. Local demand has not been verified with a participating Mexican employer.</div>
+
+<div id="workspace">
+<div class="sectionhead"><div class="eyebrow">01 / TEST A TRANSITION</div><h2>From previous work to a possible next rung</h2><p>Explore a transfer—not a hiring promise.</p></div>
+<div class="layout">
+<section class="card">
+<h3>Worker snapshot</h3><small>Fictional profile · editable inputs</small>
+<label for="role">Previous role</label>
+<input id="role" maxlength="80" value="Call center customer support agent">
+<label for="experience">Experience</label>
+<select id="experience"><option>Under 1 year</option><option selected>1–3 years</option><option>4+ years</option></select>
+<label for="skills">Skills already used</label>
+<textarea id="skills" maxlength="500">Customer communication, complaint resolution, following procedures, working under pressure</textarea>
+<small>Self-reported skills are not independently verified.</small>
+<label for="location">Target location</label>
+<select id="location"><option>Mexico City</option><option>Monterrey</option><option>Guadalajara</option><option>Remote / Mexico</option></select>
+<div class="actions"><button class="primary" id="analyze">Check possible paths</button><button id="reset">Reset</button></div>
+</section>
+<section>
+<div class="sectionhead" style="margin-top:0"><h3>Potential transitions</h3><small id="meta">2 illustrative paths · no live vacancy feed</small></div>
+<div class="routes" id="routes"></div>
+</section>
+</div>
+</div>
+
+<section class="bottom">
+<div class="card">
+<div class="eyebrow">02 / EVIDENCE RULES</div><h3>What counts as proof?</h3>
+<p>Evidence must come from an identifiable source. This prototype does not connect to external records or employers.</p>
+<ul>
+<li>Self-reported skills are clearly labeled.</li>
+<li>Missing requirements remain visible.</li>
+<li>No numerical employability score or hidden ranking.</li>
+<li>The worker can challenge the assessment.</li>
+</ul>
+</div>
+<div class="card">
+<div class="eyebrow">03 / CHALLENGE THE ASSESSMENT</div><h3>Something missing or wrong?</h3>
+<p>Challenges stay in this page session. Nothing is sent to a server.</p>
+<label for="challengeType">What should be corrected?</label>
+<select id="challengeType"><option>Skill description is inaccurate</option><option>Missing requirement is incorrect</option><option>Pathway does not fit my situation</option><option>Demand evidence is missing</option></select>
+<label for="challengeText">Your explanation (optional)</label>
+<textarea id="challengeText" maxlength="500" placeholder="Explain what needs review…"></textarea>
+<button class="primary" id="submitChallenge">Submit challenge</button>
+<p id="challengeStatus" aria-live="polite"></p>
+</div>
+</section>
+<footer>SECOND-RUNG · BUSINESS BENDING WEEK 9 · Prototype only · No employer commitments · No hiring guarantees</footer>
+</main>
+
+<script>
+const examples=[
+{title:"Customer success associate",description:"Customer communication and complaint handling may transfer to a customer success role. This is a hypothesis, not a confirmed vacancy.",skills:["Customer communication","Complaint resolution","Following service procedures"],missing:["Evidence of CRM or ticketing-system use","Examples of customer outcomes","Local employer confirmation"],proof:"A supervisor-signed description of tasks performed, or a paid, scoped task accepted by an employer."},
+{title:"Operations support coordinator",description:"Following procedures and working under pressure may transfer to process support. Fit depends on the requirements of a real local role.",skills:["Following procedures","Prioritizing requests","Working under pressure"],missing:["Spreadsheet or workflow-tool proficiency","A work sample showing process accuracy","Local employer confirmation"],proof:"An independently verified work sample or a paid, scoped task with written employer acceptance."}
+];
+const $=id=>document.getElementById(id);
+function safe(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function render(){
+const role=$("role").value.trim(),skills=$("skills").value.trim(),location=$("location").value;
+if(!role){alert("Add a previous role.");$("role").focus();return}
+if(!skills){alert("Add at least one self-reported skill.");$("skills").focus();return}
+$("meta").textContent="2 illustrative paths · demand unverified · Simulado";
+$("routes").innerHTML=examples.map((r,i)=>`
+<article class="route">
+<div class="routehead"><div><h3>${safe(r.title)}</h3><small>Possible transition from ${safe(role)} · ${safe(location)}</small></div><span class="status">DEMAND NOT VERIFIED</span></div>
+<p>${r.description}</p>
+<div class="cols"><div class="info"><strong>Transferable skills to investigate</strong><ul>${r.skills.map(s=>`<li>${safe(s)}</li>`).join("")}</ul></div>
+<div class="info"><strong>Requirements missing / unverified</strong><ul>${r.missing.map(s=>`<li>${safe(s)}</li>`).join("")}</ul></div></div>
+<div class="proof"><strong>Evidence to seek:</strong> ${r.proof}<br><strong>Demand check:</strong> No participating employer or current local vacancy has been verified in this demo.</div>
+<div class="actions"><button data-challenge="${i}">Challenge this pathway</button><button data-check="${i}">Verification checklist</button></div>
+</article>`).join("");
+}
+$("analyze").addEventListener("click",render);
+$("explore").addEventListener("click",()=>{$("workspace").scrollIntoView({behavior:"smooth"});render()});
+$("reset").addEventListener("click",()=>{$("role").value="Call center customer support agent";$("experience").selectedIndex=1;$("skills").value="Customer communication, complaint resolution, following procedures, working under pressure";$("location").selectedIndex=0;$("challengeText").value="";$("challengeStatus").textContent="";render()});
+$("submitChallenge").addEventListener("click",()=>{$("challengeStatus").textContent="Challenge noted for this demo session: "+$("challengeType").value+". No data was sent or saved."});
+$("routes").addEventListener("click",e=>{
+const c=e.target.closest("[data-challenge]"),v=e.target.closest("[data-check]");
+if(c){$("challengeType").value="Pathway does not fit my situation";$("challengeText").value="I want to challenge pathway: "+examples[Number(c.dataset.challenge)].title;$("challengeText").focus();$("challengeStatus").textContent="";}
+if(v){alert("Verification checklist:\n1. Confirm a current local vacancy with a real employer.\n2. Ask the employer to confirm required skills.\n3. Identify missing requirements.\n4. Obtain third-party evidence of completed work.\n\nThis demo has not verified an employer or vacancy.");}
+});
+$("how").addEventListener("click",()=>alert("Second-Rung is a prototype, not a job board or CV builder.\n\n1. Start with existing experience.\n2. Inspect possible paths and missing requirements.\n3. Confirm demand with a real local employer before recommending a transition.\n4. Let the worker challenge the assessment.\n\nAll data is fictional. No hiring outcome is guaranteed."));
+render();
+</script>
+</body>
+</html>
