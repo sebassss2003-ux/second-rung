@@ -182,27 +182,59 @@ const examples=[
 {title:"Customer success associate",description:"Customer communication and complaint handling may transfer to a customer success role. This is a hypothesis, not a confirmed vacancy.",skills:["customer communication","complaint resolution","following procedures"],missing:["Evidence of CRM or ticketing-system use","Examples of customer outcomes","Local employer confirmation"],proof:"A supervisor-signed description of tasks performed, or a paid, scoped task accepted by an employer."},
 {title:"Operations support coordinator",description:"Following procedures and working under pressure may transfer to process support. Fit depends on the requirements of a real local role.",skills:["following procedures","working under pressure","prioritizing requests"],missing:["Spreadsheet or workflow-tool proficiency","A work sample showing process accuracy","Local employer confirmation"],proof:"An independently verified work sample or a paid, scoped task with written employer acceptance."}
 ];
+
 const $=id=>document.getElementById(id);
-function safe(value){return String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));}
-function normalize(value){return value.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();}
+
+function safe(value){
+return String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+}
+
+function normalize(value){
+return value.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
+}
+
+function validateInputs(role,rawSkills){
+const cleanRole=String(role||"").trim();
+const cleanSkills=String(rawSkills||"").trim();
+
+if(!cleanRole)return{valid:false,field:"role",message:"Add a previous role."};
+if(cleanRole.length>80)return{valid:false,field:"role",message:"Previous role must be 80 characters or fewer."};
+if(!cleanSkills)return{valid:false,field:"skills",message:"Add at least one self-reported skill."};
+if(cleanSkills.length>500)return{valid:false,field:"skills",message:"Skills must be 500 characters or fewer."};
+
+const skills=cleanSkills.split(",").map(skill=>skill.trim()).filter(Boolean);
+if(skills.length===0)return{valid:false,field:"skills",message:"Add at least one non-empty skill separated by commas."};
+
+return{valid:true,field:null,message:""};
+}
 
 function render(){
 const role=$("role").value.trim();
 const rawSkills=$("skills").value.trim();
 const location=$("location").value;
-if(!role){alert("Add a previous role.");$("role").focus();return;}
-if(!rawSkills){alert("Add at least one self-reported skill.");$("skills").focus();return;}
+const validation=validateInputs(role,rawSkills);
+
+if(!validation.valid){
+alert(validation.message);
+$(validation.field).focus();
+return;
+}
+
 const userSkills=rawSkills.split(",").map(normalize).filter(Boolean);
+
 const ranked=examples.map(path=>{
 const matched=path.skills.filter(required=>userSkills.some(skill=>skill.includes(required)||required.includes(skill)));
-return {...path,matched,matchCount:matched.length};
+return{...path,matched,matchCount:matched.length};
 }).sort((a,b)=>b.matchCount-a.matchCount);
+
 $("meta").textContent="Sorted by simple keyword overlap · demand unverified";
+
 $("routes").innerHTML=ranked.map(path=>{
 const percentage=Math.round(path.matchCount/path.skills.length*100);
-const matchedItems=path.matched.length?path.matched.map(s=>`<li>${safe(s)}</li>`).join(""):"<li>No direct keyword overlap detected.</li>";
-const otherItems=path.skills.filter(s=>!path.matched.includes(s)).map(s=>`<li>${safe(s)}</li>`).join("");
-const missingItems=path.missing.map(s=>`<li>${safe(s)}</li>`).join("");
+const matchedItems=path.matched.length?path.matched.map(skill=>`<li>${safe(skill)}</li>`).join(""):"<li>No direct keyword overlap detected.</li>";
+const otherItems=path.skills.filter(skill=>!path.matched.includes(skill)).map(skill=>`<li>${safe(skill)}</li>`).join("");
+const missingItems=path.missing.map(skill=>`<li>${safe(skill)}</li>`).join("");
+
 return `<article class="route" data-path="${safe(path.title)}">
 <div class="routehead"><div><h3>${safe(path.title)}</h3><small>Possible transition from ${safe(role)} · ${safe(location)}</small></div><span class="status">DEMAND NOT VERIFIED</span></div>
 <p>${safe(path.description)}</p>
@@ -215,11 +247,19 @@ return `<article class="route" data-path="${safe(path.title)}">
 }
 
 $("analyze").addEventListener("click",render);
-$("explore").addEventListener("click",()=>{$("workspace").scrollIntoView({behavior:"smooth"});render();});
+$("explore").addEventListener("click",()=>{
+$("workspace").scrollIntoView({behavior:"smooth"});
+render();
+});
+
 $("reset").addEventListener("click",()=>{
-$("role").value="Call center customer support agent";$("experience").selectedIndex=1;
+$("role").value="Call center customer support agent";
+$("experience").selectedIndex=1;
 $("skills").value="Customer communication, complaint resolution, following procedures, working under pressure";
-$("location").selectedIndex=0;$("challengeText").value="";$("challengeStatus").textContent="";render();
+$("location").selectedIndex=0;
+$("challengeText").value="";
+$("challengeStatus").textContent="";
+render();
 });
 
 $("submitChallenge").addEventListener("click",()=>{
@@ -227,48 +267,113 @@ $("challengeStatus").textContent="Challenge noted for this demo session: "+$("ch
 });
 
 $("routes").addEventListener("click",event=>{
-const button=event.target.closest("button");if(!button)return;
-const route=button.closest(".route");const panel=route.querySelector("[data-panel]");
+const button=event.target.closest("button");
+if(!button)return;
+
+const route=button.closest(".route");
+const panel=route.querySelector("[data-panel]");
 const pathTitle=button.dataset.evidence||button.dataset.check||button.dataset.challenge;
+
 if(button.dataset.evidence){
-panel.hidden=false;panel.replaceChildren();
-const heading=document.createElement("h4");heading.textContent="Evidence summary: "+pathTitle;
-const text=document.createElement("p");text.textContent="Status: ILLUSTRATIVE ONLY. This route is a possibility, not a verified opportunity.";
+panel.hidden=false;
+panel.replaceChildren();
+
+const heading=document.createElement("h4");
+heading.textContent="Evidence summary: "+pathTitle;
+
+const text=document.createElement("p");
+text.textContent="Status: ILLUSTRATIVE ONLY. This route is a possibility, not a verified opportunity.";
+
 const list=document.createElement("ul");
-["Confirm that a real local employer is hiring for this type of role.","Obtain the employer's actual skill and experience requirements.","Collect independently verifiable evidence of relevant work.","Identify gaps and agree on a realistic way to address them.","Ask the worker to review and challenge the assessment."].forEach(item=>{const li=document.createElement("li");li.textContent=item;list.appendChild(li);});
-const finalNote=document.createElement("p");finalNote.textContent="No employer, vacancy, or hiring commitment has been verified by this prototype.";
-panel.append(heading,text,list,finalNote);button.textContent="Refresh evidence summary";panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+["Confirm that a real local employer is hiring for this type of role.","Obtain the employer's actual skill and experience requirements.","Collect independently verifiable evidence of relevant work.","Identify gaps and agree on a realistic way to address them.","Ask the worker to review and challenge the assessment."].forEach(item=>{
+const li=document.createElement("li");
+li.textContent=item;
+list.appendChild(li);
+});
+
+const finalNote=document.createElement("p");
+finalNote.textContent="No employer, vacancy, or hiring commitment has been verified by this prototype.";
+
+panel.append(heading,text,list,finalNote);
+button.textContent="Refresh evidence summary";
+panel.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
+
 if(button.dataset.check){
-panel.hidden=false;panel.replaceChildren();
-const heading=document.createElement("h4");heading.textContent="Verification checklist: "+pathTitle;
+panel.hidden=false;
+panel.replaceChildren();
+
+const heading=document.createElement("h4");
+heading.textContent="Verification checklist: "+pathTitle;
+
 const list=document.createElement("ol");
-["Confirm a current vacancy with a real local employer.","Ask the employer to confirm required skills.","Identify missing requirements and explain them clearly.","Request third-party evidence of completed work.","If a practical task is required, make sure it is scoped and paid."].forEach(item=>{const li=document.createElement("li");li.textContent=item;list.appendChild(li);});
-const warning=document.createElement("p");warning.textContent="Status: NOT VERIFIED. No employer, vacancy, or hiring commitment is confirmed.";
-panel.append(heading,list,warning);panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+["Confirm a current vacancy with a real local employer.","Ask the employer to confirm required skills.","Identify missing requirements and explain them clearly.","Request third-party evidence of completed work.","If a practical task is required, make sure it is scoped and paid."].forEach(item=>{
+const li=document.createElement("li");
+li.textContent=item;
+list.appendChild(li);
+});
+
+const warning=document.createElement("p");
+warning.textContent="Status: NOT VERIFIED. No employer, vacancy, or hiring commitment is confirmed.";
+
+panel.append(heading,list,warning);
+panel.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
+
 if(button.dataset.challenge){
 $("challengeType").value="Pathway does not fit my situation";
 $("challengeText").value="I want to challenge pathway: "+pathTitle;
-$("challengeStatus").textContent="";$("challengeText").focus();
+$("challengeStatus").textContent="";
+$("challengeText").focus();
 }
 });
 
 const testCases=[
-{label:"Empty role is rejected",test:()=>!$("role").value.trim()},
-{label:"Empty skills are rejected",test:()=>!$("skills").value.trim()},
-{label:"Two sample pathways are available",test:()=>examples.length===2},
-{label:"Each path discloses unverified demand",test:()=>examples.every(x=>x.missing.includes("Local employer confirmation"))},
-{label:"No employer or vacancy is invented",test:()=>examples.every(x=>/not a confirmed vacancy|real local role/i.test(x.description))}
+{
+label:"Empty role is rejected by the actual validator",
+test:()=>!validateInputs("","customer communication").valid&&validateInputs("","customer communication").field==="role"
+},
+{
+label:"Empty skills are rejected by the actual validator",
+test:()=>!validateInputs("Customer support","").valid&&validateInputs("Customer support","").field==="skills"
+},
+{
+label:"A valid role and skills are accepted",
+test:()=>validateInputs("Customer support","customer communication, complaint resolution").valid
+},
+{
+label:"Two sample pathways are available",
+test:()=>examples.length===2
+},
+{
+label:"Each path discloses unverified demand",
+test:()=>examples.every(path=>path.missing.includes("Local employer confirmation"))
+},
+{
+label:"No employer or vacancy is invented",
+test:()=>examples.every(path=>/not a confirmed vacancy|real local role/i.test(path.description))
+}
 ];
-$("testList").innerHTML=testCases.map((test,i)=>`<div class="rule"><label style="margin:0"><input type="checkbox" id="test${i}" style="width:auto;margin-right:8px"> ${safe(test.label)}</label></div>`).join("");
+
+$("testList").innerHTML=testCases.map((item,index)=>
+`<div class="rule"><label style="margin:0"><input type="checkbox" id="test${index}" style="width:auto;margin-right:8px"> ${safe(item.label)}</label></div>`
+).join("");
+
 $("runTests").addEventListener("click",()=>{
-const results=testCases.map((item,i)=>({label:item.label,pass:item.test()}));
-$("testResult").textContent=results.every(r=>r.pass)
-?"Checklist passed. This is a basic manual review, not a full audit."
-:"Review needed: "+results.filter(r=>!r.pass).map(r=>r.label).join(", ");
+const results=testCases.map((item,index)=>{
+const passed=Boolean(item.test());
+$("test"+index).checked=passed;
+return{label:item.label,pass:passed};
 });
+
+const failed=results.filter(result=>!result.pass);
+$("testResult").textContent=failed.length===0
+?"All 6 functional checks passed. This is a basic prototype test, not a full security or employment audit."
+:"Checks needing attention: "+failed.map(result=>result.label).join(", ");
+});
+
 $("how").addEventListener("click",()=>alert("Second-Rung is a prototype, not a job board or CV builder.\n\n1. Start with existing experience.\n2. Compare skills with illustrative pathways.\n3. Verify demand with a real local employer.\n4. Make evidence visible and let workers challenge assessments.\n\nKeyword matching is not an AI model. All pathways are illustrative. No hiring outcome is guaranteed."));
+
 render();
 </script>
 </body>
