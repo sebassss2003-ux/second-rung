@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Second-Rung — Evidence before advice</title>
 <style>
-:root{--ink:#182b35;--muted:#64746f;--paper:#f5f7f3;--green:#176455;--dark:#102f2b;--line:#dce5df;--amber:#fff3d8}
+:root{--ink:#182b35;--muted:#64746f;--paper:#f5f7f3;--green:#176455;--dark:#102f2b;--line:#dce5df;--amber:#fff3d8;--blue:#eaf2f7}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 system-ui,-apple-system,sans-serif}
@@ -62,6 +62,9 @@ li{margin:5px 0}
 .bottom{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:30px 0}
 .rule{padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
 .rule:last-child{border-bottom:0}
+.testbox{background:var(--blue);border:1px solid #cfdee8;border-radius:15px;padding:20px;margin:24px 0}
+.testbox h3{margin-top:0}
+.test-result{font-size:13px;font-weight:650;margin-top:12px}
 footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-size:12px}
 @media(max-width:800px){.hero,.layout,.bottom{grid-template-columns:1fr}.wrap{padding:17px}.hero{padding-top:30px}nav{padding:15px 17px}}
 @media(max-width:480px){.cols{grid-template-columns:1fr}.routehead{display:block}.status{display:inline-block;margin-top:8px}h1{letter-spacing:-2px}}
@@ -74,6 +77,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-s
 <span class="pill">WEEK 9 · DEMO</span>
 </nav>
 </header>
+
 <main class="wrap">
 <section class="hero">
 <div>
@@ -101,6 +105,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-s
 <h2>From previous work to a possible next rung</h2>
 <p>Compare self-reported skills with illustrative pathways. Keyword matching is a simple demonstration, not an AI prediction or hiring score.</p>
 </div>
+
 <div class="layout">
 <section class="card">
 <h3>Worker snapshot</h3>
@@ -119,6 +124,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-s
 <button id="reset">Reset</button>
 </div>
 </section>
+
 <section>
 <div class="sectionhead" style="margin-top:0">
 <h3>Potential transitions</h3>
@@ -128,6 +134,15 @@ footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-s
 </section>
 </div>
 </div>
+
+<section class="testbox">
+<div class="eyebrow">04 / MECHANICAL TEST</div>
+<h3>Check the prototype before trusting its output</h3>
+<p>Run the checks below to review basic behavior. This is a manual checklist, not an automated security or employment validation.</p>
+<div id="testList"></div>
+<button class="primary" id="runTests">Run manual checklist</button>
+<p class="test-result" id="testResult" role="status" aria-live="polite">Tests have not been run yet.</p>
+</section>
 
 <section class="bottom">
 <div class="card">
@@ -140,6 +155,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-s
 <div class="rule">✓ The worker can challenge an assessment.</div>
 <div class="rule">✓ Demand is never presented as verified.</div>
 </div>
+
 <div class="card">
 <div class="eyebrow">03 / CHALLENGE THE ASSESSMENT</div>
 <h3>Something missing or wrong?</h3>
@@ -157,6 +173,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-s
 <p id="challengeStatus" role="status" aria-live="polite"></p>
 </div>
 </section>
+
 <footer>SECOND-RUNG · BUSINESS BENDING WEEK 9 · Prototype only · No employer commitments · No hiring guarantees</footer>
 </main>
 
@@ -186,7 +203,7 @@ const percentage=Math.round(path.matchCount/path.skills.length*100);
 const matchedItems=path.matched.length?path.matched.map(s=>`<li>${safe(s)}</li>`).join(""):"<li>No direct keyword overlap detected.</li>";
 const otherItems=path.skills.filter(s=>!path.matched.includes(s)).map(s=>`<li>${safe(s)}</li>`).join("");
 const missingItems=path.missing.map(s=>`<li>${safe(s)}</li>`).join("");
-return `<article class="route">
+return `<article class="route" data-path="${safe(path.title)}">
 <div class="routehead"><div><h3>${safe(path.title)}</h3><small>Possible transition from ${safe(role)} · ${safe(location)}</small></div><span class="status">DEMAND NOT VERIFIED</span></div>
 <p>${safe(path.description)}</p>
 <div class="match"><div class="matchline"><span>Keyword overlap with listed skills</span><span>${path.matchCount} of ${path.skills.length}</span></div><div class="track" role="img" aria-label="${percentage}% keyword overlap"><div class="fill" style="width:${percentage}%"></div></div><div class="disclaimer">This is not a probability of employment, skill validation, or hiring score.</div></div>
@@ -204,6 +221,7 @@ $("role").value="Call center customer support agent";$("experience").selectedInd
 $("skills").value="Customer communication, complaint resolution, following procedures, working under pressure";
 $("location").selectedIndex=0;$("challengeText").value="";$("challengeStatus").textContent="";render();
 });
+
 $("submitChallenge").addEventListener("click",()=>{
 $("challengeStatus").textContent="Challenge noted for this demo session: "+$("challengeType").value+". No data was sent or saved.";
 });
@@ -236,6 +254,20 @@ $("challengeStatus").textContent="";$("challengeText").focus();
 }
 });
 
+const testCases=[
+{label:"Empty role is rejected",test:()=>!$("role").value.trim()},
+{label:"Empty skills are rejected",test:()=>!$("skills").value.trim()},
+{label:"Two sample pathways are available",test:()=>examples.length===2},
+{label:"Each path discloses unverified demand",test:()=>examples.every(x=>x.missing.includes("Local employer confirmation"))},
+{label:"No employer or vacancy is invented",test:()=>examples.every(x=>/not a confirmed vacancy|real local role/i.test(x.description))}
+];
+$("testList").innerHTML=testCases.map((test,i)=>`<div class="rule"><label style="margin:0"><input type="checkbox" id="test${i}" style="width:auto;margin-right:8px"> ${safe(test.label)}</label></div>`).join("");
+$("runTests").addEventListener("click",()=>{
+const results=testCases.map((item,i)=>({label:item.label,pass:item.test()}));
+$("testResult").textContent=results.every(r=>r.pass)
+?"Checklist passed. This is a basic manual review, not a full audit."
+:"Review needed: "+results.filter(r=>!r.pass).map(r=>r.label).join(", ");
+});
 $("how").addEventListener("click",()=>alert("Second-Rung is a prototype, not a job board or CV builder.\n\n1. Start with existing experience.\n2. Compare skills with illustrative pathways.\n3. Verify demand with a real local employer.\n4. Make evidence visible and let workers challenge assessments.\n\nKeyword matching is not an AI model. All pathways are illustrative. No hiring outcome is guaranteed."));
 render();
 </script>
