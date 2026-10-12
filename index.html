@@ -4,131 +4,82 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#102f2b">
 <title>Second-Rung — Evidence before advice</title>
 <style>
-:root{
-  --ink:#182b35;--muted:#64746f;--paper:#f5f7f3;
-  --green:#176455;--dark:#102f2b;--line:#dce5df;
-  --white:#fff;--lime:#d9f27b;--amber:#fff3d8;
-}
+:root{--ink:#182b35;--muted:#64746f;--paper:#f5f7f3;--green:#176455;--dark:#102f2b;--line:#dce5df;--amber:#fff3d8}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);
-font:15px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 system-ui,-apple-system,sans-serif}
 button,input,select,textarea{font:inherit}
-button{cursor:pointer}
+button{cursor:pointer;border-radius:10px;padding:11px 15px;font-weight:750;border:1px solid var(--line);background:#fff;color:var(--ink)}
+button:hover{filter:brightness(.96)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #94cfc0;outline-offset:2px}
+.primary{background:var(--green);color:#fff;border-color:var(--green)}
 .wrap{max-width:1180px;margin:auto;padding:24px}
 header{background:#fff;border-bottom:1px solid var(--line)}
-nav{max-width:1180px;margin:auto;padding:18px 24px;display:flex;
-justify-content:space-between;align-items:center;gap:16px}
+nav{max-width:1180px;margin:auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .brand{font-size:21px;font-weight:850;letter-spacing:-.8px}
-.mark{display:inline-grid;place-items:center;background:var(--green);
-color:#fff;border-radius:10px;width:35px;height:35px;margin-right:9px}
-.pill{border:1px solid var(--line);border-radius:30px;padding:6px 11px;
-font-size:11px;font-weight:750;letter-spacing:.5px}
-.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:30px;
-align-items:center;padding:56px 0 36px}
-.eyebrow{color:var(--green);font-size:11px;font-weight:850;
-letter-spacing:1.8px;text-transform:uppercase}
-h1{font-size:clamp(40px,6vw,68px);line-height:1.02;
-letter-spacing:-3.5px;margin:15px 0 20px;max-width:700px}
+.mark{display:inline-grid;place-items:center;background:var(--green);color:#fff;border-radius:10px;width:35px;height:35px;margin-right:9px}
+.pill{border:1px solid var(--line);border-radius:30px;padding:6px 11px;font-size:11px;font-weight:750}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;padding:48px 0 35px}
+.eyebrow{color:var(--green);font-size:11px;font-weight:850;letter-spacing:1.7px;text-transform:uppercase}
+h1{font-size:clamp(40px,6vw,66px);line-height:1.03;letter-spacing:-3px;margin:15px 0}
 h2{letter-spacing:-1px;line-height:1.2}
 h3{line-height:1.3}
 p{color:var(--muted)}
-.hero p{font-size:17px;max-width:640px}
-.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
-.card{background:#fff;border:1px solid var(--line);border-radius:20px;
-padding:23px;box-shadow:0 5px 20px #102f2b08}
-.dark{background:var(--dark);color:#fff;border:0;padding:30px}
+.hero p{font-size:17px;max-width:650px}
+.hero-actions,.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px}
+.dark{background:var(--dark);color:#fff;border:0;padding:28px}
 .dark p{color:#d0e2db}
-.dark h2{font-size:27px}
-.dark .eyebrow{color:var(--lime)}
-.dark .pill{border-color:#52756c}
-button{border-radius:10px;padding:11px 15px;font-weight:750;
-border:1px solid var(--line);background:#fff;color:var(--ink);
-transition:transform .15s,background .15s}
-button:hover{transform:translateY(-1px)}
-button:focus-visible,input:focus-visible,select:focus-visible,
-textarea:focus-visible{outline:3px solid #94cfc0;outline-offset:2px}
-.primary{background:var(--green);color:#fff;border-color:var(--green)}
-.notice{display:flex;gap:12px;align-items:flex-start;
-background:var(--amber);border:1px solid #eddaa6;border-radius:13px;
-padding:15px 17px;color:#674d19;font-size:13px}
-.notice strong{display:block}
-.sectionhead{margin:38px 0 17px}
-.sectionhead h2{margin:8px 0}
-.layout{display:grid;grid-template-columns:315px minmax(0,1fr);
-gap:22px;align-items:start}
-label{display:block;font-size:12px;font-weight:800;margin:16px 0 6px}
-input,select,textarea{width:100%;padding:11px 12px;
-border:1px solid #cbd8d2;border-radius:10px;
-background:#fbfcfa;color:var(--ink)}
+.dark .eyebrow{color:#d9f27b}
+.notice{background:var(--amber);border:1px solid #eddaa6;border-radius:13px;padding:15px;color:#674d19;font-size:13px}
+.sectionhead{margin:35px 0 17px}
+.layout{display:grid;grid-template-columns:310px minmax(0,1fr);gap:20px;align-items:start}
+label{display:block;font-size:12px;font-weight:800;margin:15px 0 6px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid #cbd8d2;border-radius:9px;background:#fbfcfa;color:var(--ink)}
 textarea{min-height:100px;resize:vertical}
 small{font-size:11px;color:var(--muted)}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
 .routes{display:grid;gap:14px}
-.route{background:#fff;border:1px solid var(--line);
-border-radius:17px;padding:20px}
-.route h3{margin:0 0 6px;font-size:21px}
-.routehead{display:flex;justify-content:space-between;
-gap:12px;align-items:start}
-.status{font-size:10px;font-weight:850;border:1px solid #e6d39d;
-background:#fff8e8;color:#765617;padding:6px 8px;border-radius:7px;
-white-space:nowrap}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-.info{background:#f4f7f4;border-radius:11px;padding:13px;font-size:12px}
-.info strong{display:block;font-size:10px;text-transform:uppercase;
-letter-spacing:.7px;margin-bottom:7px}
+.route{background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px}
+.route h3{margin:0 0 5px;font-size:20px}
+.routehead{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.status{font-size:10px;font-weight:850;border:1px solid #e6d39d;background:#fff8e8;color:#765617;padding:6px 8px;border-radius:7px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:13px}
+.info{background:#f4f7f4;border-radius:10px;padding:12px;font-size:12px}
+.info strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
 ul,ol{padding-left:19px;margin:5px 0}
-li{margin:6px 0}
-.match{margin-top:14px}
-.matchline{display:flex;justify-content:space-between;gap:10px;
-font-size:12px;font-weight:750}
-.track{height:7px;border-radius:20px;background:#e5ebe6;
-overflow:hidden;margin-top:7px}
+li{margin:5px 0}
+.match{margin-top:13px}
+.matchline{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:750}
+.track{height:7px;background:#e5ebe6;border-radius:20px;overflow:hidden;margin-top:7px}
 .fill{height:100%;background:var(--green);border-radius:20px}
-.disclaimer{font-size:11px;color:var(--muted);margin-top:10px}
-.proof{font-size:12px;border-top:1px solid var(--line);
-margin-top:14px;padding-top:12px;color:var(--muted)}
-.verification{background:#f0f7f3;border:1px solid #cfe0d6;
-border-radius:12px;padding:15px;margin-top:14px}
-.verification h4{margin:0 0 8px}
-.verification p{font-size:12px}
-.bottom{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:32px 0}
+.disclaimer{font-size:11px;margin-top:8px}
+.proof{font-size:12px;border-top:1px solid var(--line);margin-top:13px;padding-top:12px;color:var(--muted)}
+.panel{background:#f1f7f3;border:1px solid #cfe0d6;border-radius:12px;padding:15px;margin-top:14px}
+.panel h4{margin:0 0 8px}
+.panel p{font-size:12px}
+.bottom{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:30px 0}
 .rule{padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
-.rule:last-child{border:0}
-footer{border-top:1px solid var(--line);padding:23px 0;
-color:var(--muted);font-size:12px}
-#challengeStatus{font-size:13px;font-weight:650}
-@media(max-width:800px){
-.hero,.layout,.bottom{grid-template-columns:1fr}
-.hero{padding-top:35px}.wrap{padding:17px}
-nav{padding:15px 17px}
-}
-@media(max-width:480px){
-.cols{grid-template-columns:1fr}
-.routehead{display:block}
-.status{display:inline-block;margin-top:9px;white-space:normal}
-h1{letter-spacing:-2px}
-.dark{padding:22px}
-}
+.rule:last-child{border-bottom:0}
+footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-size:12px}
+@media(max-width:800px){.hero,.layout,.bottom{grid-template-columns:1fr}.wrap{padding:17px}.hero{padding-top:30px}nav{padding:15px 17px}}
+@media(max-width:480px){.cols{grid-template-columns:1fr}.routehead{display:block}.status{display:inline-block;margin-top:8px}h1{letter-spacing:-2px}}
 </style>
 </head>
 <body>
 <header>
 <nav>
 <div class="brand"><span class="mark">2</span>second-rung</div>
-<span class="pill">WEEK 9 · SIMULATED DEMO</span>
+<span class="pill">WEEK 9 · DEMO</span>
 </nav>
 </header>
-
 <main class="wrap">
 <section class="hero">
 <div>
 <div class="eyebrow">A pathway should survive a reality check</div>
 <h1>Your next step needs <span style="color:var(--green)">evidence.</span></h1>
-<p>Translate experience you already have into a possible next move. See which skills may transfer, what is missing, and what still needs an employer to say yes.</p>
+<p>Translate experience you already have into a possible next move. See what may transfer, what is missing, and what still needs an employer to say yes.</p>
 <div class="hero-actions">
 <button class="primary" id="explore">Explore a sample pathway ↗</button>
 <button id="how">How this works</button>
@@ -137,63 +88,41 @@ h1{letter-spacing:-2px}
 <div class="card dark">
 <div class="eyebrow">THE SECOND-RUNG TEST</div>
 <h2>Skills mapping is not the same as creating an opportunity.</h2>
-<p>A recommendation is only a starting point. A credible transition needs evidence, real demand, and an employer willing to recognize the worker's experience.</p>
+<p>A credible transition needs evidence, real demand, and an employer willing to recognize the worker's experience.</p>
 <span class="pill">Evidence before advice</span>
 </div>
 </section>
 
-<div class="notice">
-<div aria-hidden="true">ⓘ</div>
-<div><strong>SIMULATED DEMO — NOT A LIVE EMPLOYMENT SERVICE</strong>
-All profile details, matching results, and example pathways are illustrative.
-No Mexican employer, vacancy, salary, or hiring opportunity has been verified.
-No information is sent to a server.</div>
-</div>
+<div class="notice"><strong>SIMULATED DEMO.</strong> All profile details, matches, and pathways are illustrative. No local vacancy or Mexican employer has been verified. No data is sent to a server.</div>
 
 <div id="workspace">
 <div class="sectionhead">
 <div class="eyebrow">01 / TEST A TRANSITION</div>
 <h2>From previous work to a possible next rung</h2>
-<p>Enter experience and skills to compare them with illustrative pathways. The match is a simple demonstration, not an AI prediction or a hiring score.</p>
+<p>Compare self-reported skills with illustrative pathways. Keyword matching is a simple demonstration, not an AI prediction or hiring score.</p>
 </div>
-
 <div class="layout">
 <section class="card">
 <h3>Worker snapshot</h3>
 <small>Fictional profile · editable inputs</small>
-
 <label for="role">Previous role</label>
 <input id="role" maxlength="80" value="Call center customer support agent">
-
 <label for="experience">Experience</label>
-<select id="experience">
-<option>Under 1 year</option>
-<option selected>1–3 years</option>
-<option>4+ years</option>
-</select>
-
+<select id="experience"><option>Under 1 year</option><option selected>1–3 years</option><option>4+ years</option></select>
 <label for="skills">Skills already used</label>
 <textarea id="skills" maxlength="500">Customer communication, complaint resolution, following procedures, working under pressure</textarea>
-<small>Separate skills with commas. These are self-reported, not independently verified.</small>
-
+<small>Separate skills with commas. Self-reported skills are not independently verified.</small>
 <label for="location">Target location</label>
-<select id="location">
-<option>Mexico City</option>
-<option>Monterrey</option>
-<option>Guadalajara</option>
-<option>Remote / Mexico</option>
-</select>
-
+<select id="location"><option>Mexico City</option><option>Monterrey</option><option>Guadalajara</option><option>Remote / Mexico</option></select>
 <div class="actions">
 <button class="primary" id="analyze">Compare pathways</button>
 <button id="reset">Reset</button>
 </div>
 </section>
-
 <section>
 <div class="sectionhead" style="margin-top:0">
 <h3>Potential transitions</h3>
-<small id="meta" aria-live="polite">Illustrative pathways · no live vacancy feed</small>
+<small id="meta" aria-live="polite">Illustrative paths · no live vacancy feed</small>
 </div>
 <div class="routes" id="routes" aria-live="polite"></div>
 </section>
@@ -204,19 +133,17 @@ No information is sent to a server.</div>
 <div class="card">
 <div class="eyebrow">02 / EVIDENCE RULES</div>
 <h3>What counts as proof?</h3>
-<p>Evidence should come from an identifiable source. This prototype does not connect to external records or employers.</p>
-<div class="rule">✓ Self-reported skills are clearly labeled.</div>
+<p>Evidence must come from an identifiable source. This prototype does not connect to external records or employers.</p>
+<div class="rule">✓ Self-reported skills are labeled.</div>
 <div class="rule">✓ Missing requirements remain visible.</div>
-<div class="rule">✓ No numerical employability score or hidden ranking.</div>
-<div class="rule">✓ Workers can challenge an assessment.</div>
-<div class="rule">✓ No pathway is presented as verified demand.</div>
+<div class="rule">✓ No employability score or hidden ranking.</div>
+<div class="rule">✓ The worker can challenge an assessment.</div>
+<div class="rule">✓ Demand is never presented as verified.</div>
 </div>
-
 <div class="card">
 <div class="eyebrow">03 / CHALLENGE THE ASSESSMENT</div>
 <h3>Something missing or wrong?</h3>
-<p>Submit a sample challenge. It stays in this browser session and is not sent to a server.</p>
-
+<p>Challenges stay in this page session. Nothing is sent to a server.</p>
 <label for="challengeType">What should be corrected?</label>
 <select id="challengeType">
 <option>Skill description is inaccurate</option>
@@ -224,230 +151,92 @@ No information is sent to a server.</div>
 <option>Pathway does not fit my situation</option>
 <option>Demand evidence is missing</option>
 </select>
-
 <label for="challengeText">Your explanation (optional)</label>
 <textarea id="challengeText" maxlength="500" placeholder="Explain what needs review…"></textarea>
 <button class="primary" id="submitChallenge">Submit challenge</button>
 <p id="challengeStatus" role="status" aria-live="polite"></p>
 </div>
 </section>
-
-<footer>
-SECOND-RUNG · BUSINESS BENDING WEEK 9 · Prototype only · No employer commitments · No hiring guarantees
-</footer>
+<footer>SECOND-RUNG · BUSINESS BENDING WEEK 9 · Prototype only · No employer commitments · No hiring guarantees</footer>
 </main>
 
 <script>
-const examples = [
-{
-title: "Customer success associate",
-description: "Customer communication and complaint handling may transfer to a customer success role. This is a hypothesis, not a confirmed vacancy.",
-skills: ["customer communication", "complaint resolution", "following procedures"],
-missing: ["Evidence of CRM or ticketing-system use", "Examples of customer outcomes", "Local employer confirmation"],
-proof: "A supervisor-signed description of tasks performed, or a paid, scoped task accepted by an employer."
-},
-{
-title: "Operations support coordinator",
-description: "Following procedures and working under pressure may transfer to process support. Fit depends on the requirements of a real local role.",
-skills: ["following procedures", "working under pressure", "prioritizing requests"],
-missing: ["Spreadsheet or workflow-tool proficiency", "A work sample showing process accuracy", "Local employer confirmation"],
-proof: "An independently verified work sample or a paid, scoped task with written employer acceptance."
-}
+const examples=[
+{title:"Customer success associate",description:"Customer communication and complaint handling may transfer to a customer success role. This is a hypothesis, not a confirmed vacancy.",skills:["customer communication","complaint resolution","following procedures"],missing:["Evidence of CRM or ticketing-system use","Examples of customer outcomes","Local employer confirmation"],proof:"A supervisor-signed description of tasks performed, or a paid, scoped task accepted by an employer."},
+{title:"Operations support coordinator",description:"Following procedures and working under pressure may transfer to process support. Fit depends on the requirements of a real local role.",skills:["following procedures","working under pressure","prioritizing requests"],missing:["Spreadsheet or workflow-tool proficiency","A work sample showing process accuracy","Local employer confirmation"],proof:"An independently verified work sample or a paid, scoped task with written employer acceptance."}
 ];
+const $=id=>document.getElementById(id);
+function safe(value){return String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));}
+function normalize(value){return value.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();}
 
-const $ = id => document.getElementById(id);
-
-function safe(value) {
-return String(value).replace(/[&<>"']/g, char => ({
-"&": "&amp;", "<": "&lt;", ">": "&gt;",
-'"': "&quot;", "'": "&#39;"
-}[char]));
-}
-
-function normalize(value) {
-return value.toLocaleLowerCase().normalize("NFD")
-.replace(/[\u0300-\u036f]/g, "").trim();
-}
-
-function render() {
-const role = $("role").value.trim();
-const rawSkills = $("skills").value.trim();
-const location = $("location").value;
-
-if (!role) {
-alert("Add a previous role.");
-$("role").focus();
-return;
-}
-if (!rawSkills) {
-alert("Add at least one self-reported skill.");
-$("skills").focus();
-return;
-}
-
-const userSkills = rawSkills.split(",")
-.map(skill => normalize(skill))
-.filter(Boolean);
-
-const ranked = examples.map(path => {
-const matched = path.skills.filter(required =>
-userSkills.some(userSkill =>
-userSkill.includes(required) || required.includes(userSkill)
-)
-);
-return {...path, matched, matchCount: matched.length};
-}).sort((a, b) => b.matchCount - a.matchCount);
-
-$("meta").textContent =
-"Sorted by simple keyword overlap · demand unverified · simulated";
-
-$("routes").innerHTML = ranked.map(path => {
-const percentage = Math.round(path.matchCount / path.skills.length * 100);
-const matchingSkills = path.matched.length
-? path.matched.map(s => `<li>${safe(s)}</li>`).join("")
-: "<li>No direct keyword overlap detected.</li>";
-
-const missingSkills = path.skills
-.filter(skill => !path.matched.includes(skill))
-.map(skill => `<li>${safe(skill)}</li>`).join("");
-
-const missingRequirements = path.missing
-.map(item => `<li>${safe(item)}</li>`).join("");
-
-return `
-<article class="route">
-<div class="routehead">
-<div>
-<h3>${safe(path.title)}</h3>
-<small>Possible transition from ${safe(role)} · ${safe(location)}</small>
-</div>
-<span class="status">DEMAND NOT VERIFIED</span>
-</div>
+function render(){
+const role=$("role").value.trim();
+const rawSkills=$("skills").value.trim();
+const location=$("location").value;
+if(!role){alert("Add a previous role.");$("role").focus();return;}
+if(!rawSkills){alert("Add at least one self-reported skill.");$("skills").focus();return;}
+const userSkills=rawSkills.split(",").map(normalize).filter(Boolean);
+const ranked=examples.map(path=>{
+const matched=path.skills.filter(required=>userSkills.some(skill=>skill.includes(required)||required.includes(skill)));
+return {...path,matched,matchCount:matched.length};
+}).sort((a,b)=>b.matchCount-a.matchCount);
+$("meta").textContent="Sorted by simple keyword overlap · demand unverified";
+$("routes").innerHTML=ranked.map(path=>{
+const percentage=Math.round(path.matchCount/path.skills.length*100);
+const matchedItems=path.matched.length?path.matched.map(s=>`<li>${safe(s)}</li>`).join(""):"<li>No direct keyword overlap detected.</li>";
+const otherItems=path.skills.filter(s=>!path.matched.includes(s)).map(s=>`<li>${safe(s)}</li>`).join("");
+const missingItems=path.missing.map(s=>`<li>${safe(s)}</li>`).join("");
+return `<article class="route">
+<div class="routehead"><div><h3>${safe(path.title)}</h3><small>Possible transition from ${safe(role)} · ${safe(location)}</small></div><span class="status">DEMAND NOT VERIFIED</span></div>
 <p>${safe(path.description)}</p>
-<div class="match">
-<div class="matchline">
-<span>Keyword overlap with listed skills</span>
-<span>${path.matchCount} of ${path.skills.length}</span>
-</div>
-<div class="track" role="img" aria-label="${percentage}% keyword overlap">
-<div class="fill" style="width:${percentage}%"></div>
-</div>
-<div class="disclaimer">Not a probability of employment, a skill validation, or a hiring score.</div>
-</div>
-<div class="cols">
-<div class="info">
-<strong>Potentially relevant skills</strong>
-<ul>${matchingSkills}</ul>
-${missingSkills ? `<strong style="margin-top:12px">Other skills to investigate</strong><ul>${missingSkills}</ul>` : ""}
-</div>
-<div class="info">
-<strong>Requirements missing / unverified</strong>
-<ul>${missingRequirements}</ul>
-</div>
-</div>
-<div class="proof">
-<strong>Evidence to seek:</strong> ${safe(path.proof)}<br>
-<strong>Demand check:</strong> No participating employer or current local vacancy has been verified in this demo.
-</div>
-<div class="actions">
-<button data-challenge="${safe(path.title)}">Challenge this pathway</button>
-<button data-check="${safe(path.title)}">Verification checklist</button>
-</div>
-</article>`;
+<div class="match"><div class="matchline"><span>Keyword overlap with listed skills</span><span>${path.matchCount} of ${path.skills.length}</span></div><div class="track" role="img" aria-label="${percentage}% keyword overlap"><div class="fill" style="width:${percentage}%"></div></div><div class="disclaimer">This is not a probability of employment, skill validation, or hiring score.</div></div>
+<div class="cols"><div class="info"><strong>Potentially relevant skills</strong><ul>${matchedItems}</ul>${otherItems?`<strong style="margin-top:12px">Other skills to investigate</strong><ul>${otherItems}</ul>`:""}</div><div class="info"><strong>Requirements missing / unverified</strong><ul>${missingItems}</ul></div></div>
+<div class="proof"><strong>Evidence to seek:</strong> ${safe(path.proof)}<br><strong>Demand check:</strong> No participating employer or current local vacancy has been verified.</div>
+<div class="actions"><button data-evidence="${safe(path.title)}">Create evidence summary</button><button data-check="${safe(path.title)}">Verification checklist</button><button data-challenge="${safe(path.title)}">Challenge this pathway</button></div>
+<div class="panel" data-panel hidden></div></article>`;
 }).join("");
 }
 
-$("analyze").addEventListener("click", render);
-$("explore").addEventListener("click", () => {
-$("workspace").scrollIntoView({behavior:"smooth"});
-render();
+$("analyze").addEventListener("click",render);
+$("explore").addEventListener("click",()=>{$("workspace").scrollIntoView({behavior:"smooth"});render();});
+$("reset").addEventListener("click",()=>{
+$("role").value="Call center customer support agent";$("experience").selectedIndex=1;
+$("skills").value="Customer communication, complaint resolution, following procedures, working under pressure";
+$("location").selectedIndex=0;$("challengeText").value="";$("challengeStatus").textContent="";render();
+});
+$("submitChallenge").addEventListener("click",()=>{
+$("challengeStatus").textContent="Challenge noted for this demo session: "+$("challengeType").value+". No data was sent or saved.";
 });
 
-$("reset").addEventListener("click", () => {
-$("role").value = "Call center customer support agent";
-$("experience").selectedIndex = 1;
-$("skills").value = "Customer communication, complaint resolution, following procedures, working under pressure";
-$("location").selectedIndex = 0;
-$("challengeText").value = "";
-$("challengeStatus").textContent = "";
-const panel = document.getElementById("verificationPanel");
-if (panel) panel.remove();
-render();
-});
-
-$("submitChallenge").addEventListener("click", () => {
-$("challengeStatus").textContent =
-"Challenge noted for this demo session: " +
-$("challengeType").value +
-". No data was sent or saved.";
-});
-
-$("routes").addEventListener("click", event => {
-const challenge = event.target.closest("[data-challenge]");
-const checklist = event.target.closest("[data-check]");
-
-if (challenge) {
-$("challengeType").value = "Pathway does not fit my situation";
-$("challengeText").value =
-"I want to challenge pathway: " + challenge.dataset.challenge;
-$("challengeText").focus();
-$("challengeStatus").textContent = "";
+$("routes").addEventListener("click",event=>{
+const button=event.target.closest("button");if(!button)return;
+const route=button.closest(".route");const panel=route.querySelector("[data-panel]");
+const pathTitle=button.dataset.evidence||button.dataset.check||button.dataset.challenge;
+if(button.dataset.evidence){
+panel.hidden=false;panel.replaceChildren();
+const heading=document.createElement("h4");heading.textContent="Evidence summary: "+pathTitle;
+const text=document.createElement("p");text.textContent="Status: ILLUSTRATIVE ONLY. This route is a possibility, not a verified opportunity.";
+const list=document.createElement("ul");
+["Confirm that a real local employer is hiring for this type of role.","Obtain the employer's actual skill and experience requirements.","Collect independently verifiable evidence of relevant work.","Identify gaps and agree on a realistic way to address them.","Ask the worker to review and challenge the assessment."].forEach(item=>{const li=document.createElement("li");li.textContent=item;list.appendChild(li);});
+const finalNote=document.createElement("p");finalNote.textContent="No employer, vacancy, or hiring commitment has been verified by this prototype.";
+panel.append(heading,text,list,finalNote);button.textContent="Refresh evidence summary";panel.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-
-if (checklist) {
-const route = checklist.closest(".route");
-const existing = route.querySelector(".verification");
-
-if (existing) {
-existing.remove();
-checklist.textContent = "Verification checklist";
-return;
+if(button.dataset.check){
+panel.hidden=false;panel.replaceChildren();
+const heading=document.createElement("h4");heading.textContent="Verification checklist: "+pathTitle;
+const list=document.createElement("ol");
+["Confirm a current vacancy with a real local employer.","Ask the employer to confirm required skills.","Identify missing requirements and explain them clearly.","Request third-party evidence of completed work.","If a practical task is required, make sure it is scoped and paid."].forEach(item=>{const li=document.createElement("li");li.textContent=item;list.appendChild(li);});
+const warning=document.createElement("p");warning.textContent="Status: NOT VERIFIED. No employer, vacancy, or hiring commitment is confirmed.";
+panel.append(heading,list,warning);panel.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-
-const panel = document.createElement("div");
-panel.className = "verification";
-
-const title = document.createElement("h4");
-title.textContent = "Verification checklist: " + checklist.dataset.check;
-
-const steps = document.createElement("ol");
-const items = [
-"Confirm a current vacancy with a real local employer.",
-"Ask the employer to confirm the required skills.",
-"Identify missing requirements and explain them clearly.",
-"Request independently verified evidence of completed work.",
-"If a practical task is required, make sure it is scoped and paid."
-];
-
-items.forEach(item => {
-const li = document.createElement("li");
-li.textContent = item;
-steps.appendChild(li);
-});
-
-const warning = document.createElement("p");
-warning.textContent =
-"Status: NOT VERIFIED. This prototype has no confirmed employer, vacancy, or hiring commitment.";
-
-panel.append(title, steps, warning);
-route.appendChild(panel);
-checklist.textContent = "Hide checklist";
-panel.scrollIntoView({behavior:"smooth", block:"nearest"});
+if(button.dataset.challenge){
+$("challengeType").value="Pathway does not fit my situation";
+$("challengeText").value="I want to challenge pathway: "+pathTitle;
+$("challengeStatus").textContent="";$("challengeText").focus();
 }
 });
 
-$("how").addEventListener("click", () => {
-alert(
-"Second-Rung is a prototype, not a job board or CV builder.\n\n" +
-"1. Start with existing experience.\n" +
-"2. Compare skills with illustrative pathways.\n" +
-"3. Confirm demand with a real local employer before recommending a transition.\n" +
-"4. Let the worker challenge the assessment.\n\n" +
-"The comparison uses simple keyword matching, not an AI model. " +
-"All data is fictional. No hiring outcome is guaranteed."
-);
-});
-
+$("how").addEventListener("click",()=>alert("Second-Rung is a prototype, not a job board or CV builder.\n\n1. Start with existing experience.\n2. Compare skills with illustrative pathways.\n3. Verify demand with a real local employer.\n4. Make evidence visible and let workers challenge assessments.\n\nKeyword matching is not an AI model. All pathways are illustrative. No hiring outcome is guaranteed."));
 render();
 </script>
 </body>
